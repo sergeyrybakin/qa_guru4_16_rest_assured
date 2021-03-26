@@ -6,13 +6,15 @@ import io.restassured.response.Response;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class SearchTests extends TestBase {
 
-    String expectedText = "title=\"Show details for 14.1-inch Laptop\"";
+    String positiveSearch = searchDataConfig.positiveSearch();
+    String expectedText = searchDataConfig.expectedText(); //"title=\"Show details for 14.1-inch Laptop\"";
+    String negativeSearch = searchDataConfig.negativeSearch();
+    String expectedNegativeText = searchDataConfig.expectedNegativeText(); //"No products were found that matched your criteria.";
 
     @Test
     void searchGoodsWithCookieTest()
@@ -23,7 +25,7 @@ public class SearchTests extends TestBase {
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .cookies(cookies)
                 .when()
-                .get("/search?Q=Laptop&As=false&Cid=0&Isc=false&Mid=0&Pf=&Pt=&Sid=false")
+                .get("/search?Q=" + positiveSearch +"&As=false&Cid=0&Isc=false&Mid=0&Pf=&Pt=&Sid=false")
                 .then()
                 .log().body()
                 .statusCode(200)
@@ -41,12 +43,12 @@ public class SearchTests extends TestBase {
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .cookies(cookies)
                 .when()
-                .get("/search?Q=Book&As=false&Cid=0&Isc=false&Mid=0&Pf=&Pt=&Sid=false")
+                .get("/search?Q=" + negativeSearch + "&As=false&Cid=0&Isc=false&Mid=0&Pf=&Pt=&Sid=false")
                 .then()
                 .log().body()
                 .statusCode(200)
                 .extract().response();
         String stringResponse = response.asString();
-        assertFalse(stringResponse.contains(expectedText), "###ERROR: Response should not contain text: " + expectedText + "!");
+        assertTrue(stringResponse.contains(expectedNegativeText), "###ERROR: Response should contain text: " + expectedNegativeText + "!");
     }
 }
