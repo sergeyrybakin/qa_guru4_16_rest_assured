@@ -30,7 +30,7 @@ public class CartTest  extends TestBase {
 
     @Test
     void addItemToCartWithCookieTest() {
-        Map<String, String> cookies = new Auth().login("rserge65@bk.ru", "Passw0rd_zxc");
+        Map<String, String> cookies = new Auth().login(config.login(), config.password());
 
         Response response = given()
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")

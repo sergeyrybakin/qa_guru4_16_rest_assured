@@ -15,12 +15,11 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 public class LoginTests extends TestBase {
 
-    String email = "rserge65@bk.ru";
-    String password = "Passw0rd_zxc";
+    String email =  config.login();
+    String password = config.password();
 
     @Test
     void loginWithUITest() {
