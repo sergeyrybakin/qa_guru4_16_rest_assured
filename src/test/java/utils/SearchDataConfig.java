@@ -6,6 +6,7 @@ import org.aeonbits.owner.Config;
         "classpath:searchData.properties"
 })
 public interface SearchDataConfig extends Config {
+
     @Key ("positiveSearch")
     String positiveSearch();
 
