@@ -9,6 +9,6 @@ You have to register own user for running this tests.
 All search criterions are in *src/test/java/utils/SearchDataConfig.java*
 You can use command line for config own search criterions.
 
-#Usage
+# Usage
 
 qa_guru4_16_rest_assured$ gradle test --tests "tests.SearchTests" -Dlogin=YouOwn@Email -Dpassword=YouOwnPassword -DnegativeSearch=Blabla -DpositiveSearch=Laptop
